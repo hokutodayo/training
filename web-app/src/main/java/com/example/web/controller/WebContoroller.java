@@ -9,6 +9,7 @@ public class WebContoroller {
 
 	@GetMapping(value="/")
 	public String index(Model model) {
+		model.addAttribute("message","ようこそ");
 		return "index";
 	}
 }
