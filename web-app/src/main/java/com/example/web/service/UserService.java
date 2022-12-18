@@ -1,5 +1,6 @@
 package com.example.web.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +27,12 @@ public class UserService {
 
 	public User search(Long id) {
 		return userRepository.findById(id).get();
+	}
+	
+	public User createUser(User user) {
+		Date now = new Date();
+		user.setCreateDate(now);
+		user.setUpdateDate(now);
+		return userRepository.save(user);
 	}
 }

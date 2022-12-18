@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.web.entity.User;
 import com.example.web.service.UserService;
@@ -29,5 +30,20 @@ public class UserContoroller {
 		User user = userService.search(id);
 		model.addAttribute("user", user);
 		return "user/detail";
+	}
+
+	@GetMapping("/user/add")
+	public String displayAdd(Model model) {
+		model.addAttribute("user", new User());
+		return "user/add";
+	}
+
+	@PostMapping("/user/create")
+	public String createUser(User user, Model model) {
+		
+		// ユーザー作成
+		userService.createUser(user);
+		
+		return "redirect:/user/list";
 	}
 }
