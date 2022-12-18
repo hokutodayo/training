@@ -14,15 +14,16 @@ public class UserContoroller {
 
 	@Autowired
 	UserService userService;
-	
-	@GetMapping(value="/user/list")
+
+	@GetMapping(value = "/user/list")
 	public String displayList(Model model) {
-		model.addAttribute("id",100);
-		model.addAttribute("name","サンプル太郎");
-		model.addAttribute("address","東京都新宿区1-2-3");
-		model.addAttribute("phone","090-1234-1234");
-		model.addAttribute("updateDate",new Date());
-		
+		model.addAttribute("id", 100);
+		model.addAttribute("name", "サンプル太郎");
+		model.addAttribute("address", "東京都新宿区1-2-3");
+		model.addAttribute("phone", "090-1234-1234");
+		model.addAttribute("updateDate", new Date());
+
 		return "user/list";
 	}
+
 }
