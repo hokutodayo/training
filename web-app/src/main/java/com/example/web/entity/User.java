@@ -2,6 +2,8 @@ package com.example.web.entity;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -54,18 +56,21 @@ public class User {
 	/**
 	 * 更新日時
 	 */
+	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
 	@Column(name = "update_date")
 	private Date updateDate;
 
 	/**
 	 * 登録日時
 	 */
+	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
 	@Column(name = "create_date")
 	private Date createDate;
 
 	/**
 	 * 削除日時
 	 */
+	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
 	@Column(name = "delete_date")
 	private Date deleteDate;
 }

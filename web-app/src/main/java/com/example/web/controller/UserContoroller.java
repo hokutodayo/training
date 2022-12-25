@@ -60,4 +60,24 @@ public class UserContoroller {
 
 		return "redirect:/user/list";
 	}
+
+	@GetMapping("/user/{id}/edit")
+	public String displayEdit(@PathVariable Long id, Model model) {
+		User user = userService.search(id);
+		model.addAttribute("user", user);
+		return "user/edit";
+	}
+
+	@PostMapping("/user/update")
+	public String updateUser(@Validated User user, BindingResult result, Model model) {
+		// 入力値のバリデーション
+		if (result.hasErrors()) {
+			return "user/edit";
+		}
+
+		// ユーザー更新
+		userService.updateUser(user);
+
+		return "redirect:/user/list";
+	}
 }

@@ -39,4 +39,10 @@ public class UserService {
 	public void deleteUser(Long id) {
 		userRepository.deleteById(id);
 	}
+
+	public User updateUser(User user) {
+		Date now = new Date();
+		user.setUpdateDate(now);
+		return userRepository.save(user);
+	}
 }
