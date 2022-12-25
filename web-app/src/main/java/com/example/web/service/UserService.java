@@ -28,11 +28,15 @@ public class UserService {
 	public User search(Long id) {
 		return userRepository.findById(id).get();
 	}
-	
+
 	public User createUser(User user) {
 		Date now = new Date();
 		user.setCreateDate(now);
 		user.setUpdateDate(now);
 		return userRepository.save(user);
+	}
+
+	public void deleteUser(Long id) {
+		userRepository.deleteById(id);
 	}
 }

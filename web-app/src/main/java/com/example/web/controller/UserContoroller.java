@@ -52,4 +52,12 @@ public class UserContoroller {
 
 		return "redirect:/user/list";
 	}
+
+	@GetMapping("/user/{id}/delete")
+	public String deleteUser(@PathVariable Long id, Model model) {
+		// ユーザー削除
+		userService.deleteUser(id);
+
+		return "redirect:/user/list";
+	}
 }
