@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.web.entity.User;
 import com.example.web.repository.UserRepository;
@@ -42,9 +43,10 @@ public class UserService {
 		userRepository.deleteById(id);
 	}
 
+	@Transactional
 	public User updateUser(User user) throws OptimisticLockException {
 		// 排他制御（更新チェック）
-		User currentUser = userRepository.findById(user.getId()).get();
+		User currentUser = userRepository.findOneForUpdate(user.getId());
 
 		if (currentUser.getUpdateDate().getTime() == user.getUpdateDate().getTime()) {
 			Date now = new Date();
