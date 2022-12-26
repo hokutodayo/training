@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.example.web.entity.User;
 import com.example.web.service.UserService;
 
+import jakarta.persistence.OptimisticLockException;
+
 @Controller
 public class UserContoroller {
 
@@ -75,9 +77,16 @@ public class UserContoroller {
 			return "user/edit";
 		}
 
-		// ユーザー更新
-		userService.updateUser(user);
+		try {
+			// ユーザー更新
+			userService.updateUser(user);
+			return "redirect:/user/list";
 
-		return "redirect:/user/list";
+		} catch (OptimisticLockException e) {
+			// 排他制御に失敗した場合
+			model.addAttribute("message", "データが他の方によって更新されたようです。詳細画面に戻ってから再実施してください。");
+			return "user/edit";
+		}
+
 	}
 }

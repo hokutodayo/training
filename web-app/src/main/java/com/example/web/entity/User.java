@@ -73,4 +73,5 @@ public class User {
 	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
 	@Column(name = "delete_date")
 	private Date deleteDate;
+
 }

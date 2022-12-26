@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.example.web.entity.User;
 import com.example.web.repository.UserRepository;
 
+import jakarta.persistence.OptimisticLockException;
+
 /**
  * ユーザー情報 Service
  */
@@ -40,9 +42,16 @@ public class UserService {
 		userRepository.deleteById(id);
 	}
 
-	public User updateUser(User user) {
-		Date now = new Date();
-		user.setUpdateDate(now);
-		return userRepository.save(user);
+	public User updateUser(User user) throws OptimisticLockException {
+		// 排他制御（更新チェック）
+		User currentUser = userRepository.findById(user.getId()).get();
+
+		if (currentUser.getUpdateDate().getTime() == user.getUpdateDate().getTime()) {
+			Date now = new Date();
+			user.setUpdateDate(now);
+			return userRepository.save(user);
+		} else {
+			throw new OptimisticLockException(user);
+		}
 	}
 }
