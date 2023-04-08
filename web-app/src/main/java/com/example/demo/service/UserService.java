@@ -10,6 +10,7 @@ import com.example.demo.entity.User;
 import com.example.demo.repository.UserRepository;
 
 import jakarta.persistence.OptimisticLockException;
+import jakarta.transaction.Transactional;
 
 @Service
 public class UserService {
@@ -36,9 +37,10 @@ public class UserService {
 		userRepository.deleteById(id);
 	}
 
+	@Transactional
 	public User updateUser(User user) {
 
-		User currentUser = userRepository.findById(user.getId()).get();
+		User currentUser = userRepository.findOneForUpdate(user.getId());
 
 		if (currentUser.getUpdateDate().equals(user.getUpdateDate())) {
 			LocalDateTime now = LocalDateTime.now();
